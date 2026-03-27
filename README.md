@@ -224,5 +224,6 @@ fintech-api/
 Import `fintech-api.postman_collection.json` from the repo root. Steps:
 1. Call **Register** → copy OTP from response
 2. Call **Verify OTP** → account is activated
-3. Call **Login** → copy the `token` from response
-4. Set `Authorization: Bearer <token>` header for Transfer and Transaction History
+3. Call **Resend OTp** → generates new OTP
+4. Call **Login** → copy the `token` from response
+5. Set `Authorization: Bearer <token>` header for Transfer and Transaction History
