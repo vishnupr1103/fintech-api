@@ -91,7 +91,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         log.info("Transfer successful: transactionId={}, amount={}", transaction.getId(), request.getAmount());
 
-        return mapToResponse(transaction);
+        return mapToResponse(transaction, senderId);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class TransactionServiceImpl implements TransactionService {
         Page<Transaction> transactions = transactionRepository.findAllByUserId(userId, pageRequest);
         log.info("Found {} transactions for userId={}", transactions.getContent().size(), userId);
         if (!transactions.isEmpty()) {
-            transactions.forEach(transaction -> responses.add(mapToResponse(transaction)));
+            transactions.forEach(transaction -> responses.add(mapToResponse(transaction, userId)));
         }
         return PaginatedResponse.<TransactionResponse>builder()
                 .list(responses)
@@ -121,7 +121,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .build();
     }
 
-    private TransactionResponse mapToResponse(Transaction t) {
+    private TransactionResponse mapToResponse(Transaction t, Long userId) {
         return TransactionResponse.builder()
                 .transactionId(t.getId())
                 .senderId(t.getSender().getId())
@@ -129,7 +129,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .receiverId(t.getReceiver().getId())
                 .receiverName(t.getReceiver().getName())
                 .amount(t.getAmount())
-                .type(JwtUtil.getUserId().equals(t.getSender().getId()) ?
+                .type(userId.equals(t.getSender().getId()) ?
                         TransactionType.DEBIT.name() : TransactionType.CREDIT.name())
                 .status(t.getStatus().name())
                 .description(t.getDescription())
