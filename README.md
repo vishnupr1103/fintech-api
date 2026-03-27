@@ -32,7 +32,7 @@ A Spring Boot backend simulating a user onboarding and transaction flow for a fi
 CREATE DATABASE fintechdb;
 ```
 
-Update `src/main/resources/application.properties` if your credentials differ:
+Update `src/main/resources/application.yml` if your credentials differ:
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/fintechdb
@@ -62,6 +62,23 @@ Server starts at: **http://localhost:8080**
 ## Swagger UI
 
 Visit: **http://localhost:8080/swagger-ui.html**
+
+
+## 🚀 Deployment (Render)
+
+The application is deployed on cloud using Render.
+
+- 🌐 Base URL: https://fintech-api-8fm2.onrender.com
+- 📄 Swagger UI: https://fintech-api-8fm2.onrender.com/swagger-ui/index.html
+
+### Tech Details
+- Backend deployed as a Web Service
+- PostgreSQL database hosted on Render
+- Environment variables used for configuration
+- Internal database networking for secure connection
+- Dockerized using multi-stage build
+
+---
 
 All endpoints are documented and testable directly from the browser.
 
